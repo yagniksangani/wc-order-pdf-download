@@ -1,4 +1,4 @@
-# woocommerce-order-pdf-download
+# wc-order-pdf-download
 
 Download PDF for WooCommerce orders.
 
