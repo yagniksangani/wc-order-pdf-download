@@ -5,7 +5,7 @@ Download PDF for WooCommerce orders.
 == Description ==
 This WooCommerce extension generates a PDF invoice for your woocommerce orders. Admin can download order pdf from the order admin page and customers can download order pdf from the my account page.
 
-= Features =
+== Features ==
 * Download the PDF invoice from the order admin page.
 * Download invoices from the My Account page
 
