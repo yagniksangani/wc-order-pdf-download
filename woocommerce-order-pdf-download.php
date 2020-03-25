@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: WC Order PDF Download
+ * Plugin URI: https://github.com/yagniksangani/wc-order-pdf-download
  * Description: A plugin to download pdf for WooCommerce orders.
  * Version: 1.0.0
  * Author: Yagnik Sangani
