@@ -152,18 +152,17 @@ class WC_Order_PDF_Download {
 			}
 			$html .= '<tr><td><strong>'.esc_html__( "Order Status", "wcorderpdf" ).'</strong></td><td>'.$order_status.'</td></tr>';
 			$html .= '<tr><td><strong>'.esc_html__( "Payment Method", "wcorderpdf" ).'</strong></td><td>'.$payment_method.'</td></tr>';
+
 			ob_start();
-			do_action( 'wc_order_pdf_extra_order',$order );
+			do_action( 'wcopd_order_pdf_add_extra_order_details',$order );
 			$html.=ob_get_clean();
+
 			$html .= '<tr><td><strong>'.esc_html__( "Items", "wcorderpdf" ).'</strong></td>';
 
 		 	$html .= '<td><table cellpadding="5" cellspacing="0" border="1" style="border:1px dashed black;width:100%"><tr><td><strong>'.esc_html__( "Item Name", "wcorderpdf" ).'</strong></td><td><strong>'.esc_html__( "Quantity", "wcorderpdf" ).'</strong></td><td><strong>'.esc_html__( "Price", "wcorderpdf" ).'</strong></td></tr>';
 
-	                foreach( $order_items as $item_id => $order_item ) {
+	        foreach( $order_items as $item_id => $order_item ) {
 				$html .= "<tr><td>".$order_item->get_name()."</td><td>".$order_item->get_quantity()."</td><td>".$currency." ".$order_item->get_total()."</td></tr>";
-			        ob_start();
-				do_action( 'wc_order_pdf_extra_order_item',$order_item );
-				$html.=ob_get_clean();
 			}
 
 			$html .= '</table></td></tr>';

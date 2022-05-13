@@ -10,6 +10,7 @@ class ComposerStaticInitbf22de92f24fc945056cf45578d2c072
         'S' => 
         array (
             'Svg\\' => 4,
+            'Sabberworm\\CSS\\' => 15,
         ),
         'F' => 
         array (
@@ -26,6 +27,10 @@ class ComposerStaticInitbf22de92f24fc945056cf45578d2c072
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
         ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
         'FontLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
@@ -36,17 +41,8 @@ class ComposerStaticInitbf22de92f24fc945056cf45578d2c072
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'S' => 
-        array (
-            'Sabberworm\\CSS' => 
-            array (
-                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
-            ),
-        ),
-    );
-
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
         'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
@@ -60,7 +56,6 @@ class ComposerStaticInitbf22de92f24fc945056cf45578d2c072
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitbf22de92f24fc945056cf45578d2c072::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitbf22de92f24fc945056cf45578d2c072::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbf22de92f24fc945056cf45578d2c072::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitbf22de92f24fc945056cf45578d2c072::$classMap;
 
         }, null, ClassLoader::class);
