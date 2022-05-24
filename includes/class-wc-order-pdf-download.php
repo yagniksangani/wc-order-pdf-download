@@ -151,7 +151,9 @@ class WC_Order_PDF_Download {
 				$html .= '<tr><td><strong>'.esc_html__( "Shipping Address", "wcorderpdf" ).'</strong></td><td>'.$shipping_address.'</td></tr>';
 			}
 			$html .= '<tr><td><strong>'.esc_html__( "Order Status", "wcorderpdf" ).'</strong></td><td>'.$order_status.'</td></tr>';
-			$html .= '<tr><td><strong>'.esc_html__( "Payment Method", "wcorderpdf" ).'</strong></td><td>'.$payment_method.'</td></tr>';
+			if ( ! empty( $payment_method ) ) {
+				$html .= '<tr><td><strong>'.esc_html__( "Payment Method", "wcorderpdf" ).'</strong></td><td>'.$payment_method.'</td></tr>';
+			}
 
 			ob_start();
 			do_action( 'wcopd_order_pdf_add_extra_order_details',$order );
