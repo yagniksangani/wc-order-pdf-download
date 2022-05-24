@@ -173,6 +173,10 @@ class WC_Order_PDF_Download {
 			$html .= '</table></td></tr>';
 			$html .= '<tr><td><strong>'.esc_html__( "Order Total", "wcorderpdf" ).'</strong></td><td>'.$currency." ".$order_total.'</td></tr>';
 
+			ob_start();
+			do_action( 'wcopd_order_pdf_add_extra_table_rows', $order );
+			$html .= ob_get_clean();
+
 			$html .= "</table>";
 		 	
 			$filename = "order-".$order_id;

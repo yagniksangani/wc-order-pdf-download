@@ -19,6 +19,10 @@ add_action( 'wcopd_order_pdf_add_extra_order_details', 'callback_function', 10, 
 ```
 add_action( 'wcopd_order_pdf_add_order_item_meta', 'callback_function', 10, 1 );
 ```
+* Use hook to add extra rows to pdf table
+```
+add_action( 'wcopd_order_pdf_add_extra_table_rows', 'callback_function', 10, 1 );
+```
 ## Installation
 
 1. Upload plugin to the "/wp-content/plugins/" directory.
