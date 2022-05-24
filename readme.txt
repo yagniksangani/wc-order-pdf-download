@@ -19,6 +19,8 @@ This WooCommerce extension generates a PDF invoice for your woocommerce orders. 
 * Download invoices from the My Account page
 * Use hook to add new order items in pdf table 
 add_action( 'wcopd_order_pdf_add_extra_order_details', 'callback_function', 10, 1 );
+* Use hook to add order item meta in pdf table
+add_action( 'wcopd_order_pdf_add_order_item_meta', 'callback_function', 10, 1 );
 
 == Installation ==
 1. Upload plugin to the "/wp-content/plugins/" directory.
