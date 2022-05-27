@@ -166,7 +166,7 @@ class WC_Order_PDF_Download {
 			foreach( $order_items as $item_id => $order_item ) {
 				ob_start();
 				do_action( 'wcopd_order_pdf_add_order_item_meta', $order_item );
-				$meta .= ob_get_clean();
+				$meta = ob_get_clean();
 				$html .= "<tr><td>".$order_item->get_name(). $meta . "</td><td>".$order_item->get_quantity()."</td><td>".$currency." ".$order_item->get_total()."</td></tr>";
 			}
 
