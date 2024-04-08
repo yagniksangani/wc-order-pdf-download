@@ -1,7 +1,7 @@
 === WC Order PDF Download ===
 Contributors: yagniksangani
 Donate link: paypal.me/yagniksangani
-Tags: woocommerce, pdf, invoices, order, print, bill, receipt
+Tags: woocommerce, pdf, invoices, order
 Requires at least: 6.3
 Tested up to: 6.5
 Requires PHP: 7.4
