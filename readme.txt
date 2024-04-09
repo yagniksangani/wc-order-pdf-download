@@ -5,7 +5,7 @@ Tags: woocommerce, pdf, invoices, order
 Requires at least: 6.3
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,3 +53,6 @@ This WooCommerce extension simplifies invoice generation for your WooCommerce or
 * Improved Code Performance: Enhanced the code for better efficiency and performance.
 * Strengthened Security Measures: Implemented updates to ensure robust security.
 * Verified Compatibility with Latest WordPress Version: Ensured seamless integration by confirming compatibility with the most recent WordPress version.
+
+= 1.2.1 =
+* Minor code fixes
