@@ -182,6 +182,10 @@ class WC_Order_PDF_Download {
 						margin: 0;
 				  	}
 				  
+				  	.store_name {
+				  		color: #052b47;
+				  	}
+
 					.wcopd_pdf_body {
 						padding:50px 50px;
 						background-color: #f5e5e5;
@@ -205,8 +209,14 @@ class WC_Order_PDF_Download {
 						color: #fff;
 					}
 
+					.wcopd_pdf_order_value {
+						color: #052b47;
+						font-weight: 400;
+					}
+
 					.wcopd_pdf_store_address {
 						margin: 10px 10px;
+						color: #052b47;
 					}
 
 					.wcopd_pdf_item_data {
@@ -226,7 +236,7 @@ class WC_Order_PDF_Download {
 			$html .= '<tr><td>';
 
 			if ( empty( $sitelogo[0] ) ) {
-				$html .= '<div class="store_logo"><h2>' . get_bloginfo( 'name' ) . '</h2></div>';
+				$html .= '<div class="store_name"><h2>' . get_bloginfo( 'name' ) . '</h2></div>';
 			} else {
 				$html .= '<div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '"></div>';
 			}
@@ -237,17 +247,17 @@ class WC_Order_PDF_Download {
 
 			$html .= '<table class="wcopd_pdf_order_details" cellpadding="10" cellspacing="0">';
 
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Number', 'wc-order-pdf-download' ) . '</strong></td><td>#' . $order_id . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Date', 'wc-order-pdf-download' ) . '</strong></td><td>' . date_format( $order_date, 'Y/m/d H:i:s' ) . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'First Name', 'wc-order-pdf-download' ) . '</strong></td><td>' . $billing_first_name . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Last Name', 'wc-order-pdf-download' ) . '</strong></td><td>' . $billing_last_name . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Email Address', 'wc-order-pdf-download' ) . '</strong></td><td>' . $billing_email . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Billing Address', 'wc-order-pdf-download' ) . '</strong></td><td>' . $billing_address . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Number', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">#' . $order_id . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Date', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . date_format( $order_date, 'Y/m/d H:i:s' ) . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'First Name', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $billing_first_name . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Last Name', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $billing_last_name . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Email Address', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $billing_email . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Billing Address', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $billing_address . '</td></tr>';
 			if ( ! empty( $shipping_address ) ) {
-				$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Shipping Address', 'wc-order-pdf-download' ) . '</strong></td><td>' . $shipping_address . '</td></tr>';
+				$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Shipping Address', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $shipping_address . '</td></tr>';
 			}
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Status', 'wc-order-pdf-download' ) . '</strong></td><td>' . $order_status . '</td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Payment Method', 'wc-order-pdf-download' ) . '</strong></td><td>' . $payment_method . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Status', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $order_status . '</td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Payment Method', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value">' . $payment_method . '</td></tr>';
 
 			ob_start();
 			do_action( 'wcopd_order_pdf_add_extra_order_details', $order );
@@ -260,11 +270,11 @@ class WC_Order_PDF_Download {
 			foreach ( $order_items as $item_id => $order_item ) {
 				$product_id = $order_item['product_id'];
 				$product    = wc_get_product( $product_id );
-				$html      .= '<tr><td><div class="wcopd_pdf_item_data"><div class="item_data">' . $product->get_image( array( 35, 35 ) ) . '</div><div class="item_data">' . $order_item->get_name() . '</div></div></td><td>' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td>' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
+				$html      .= '<tr><td class="wcopd_pdf_order_value"><div class="wcopd_pdf_item_data"><div class="item_data">' . $product->get_image( array( 35, 35 ) ) . '</div><div class="item_data">' . $order_item->get_name() . '</div></div></td><td class="wcopd_pdf_order_value">' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td class="wcopd_pdf_order_value">' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
 			}
 
 			$html .= '</table></td></tr>';
-			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Total', 'wc-order-pdf-download' ) . '</strong></td><td><strong>' . $currency . ' ' . number_format( $order_total, 2, '.', '' ) . '</strong></td></tr>';
+			$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Total', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value"><strong>' . $currency . ' ' . number_format( $order_total, 2, '.', '' ) . '</strong></td></tr>';
 
 			$html .= '</table></body></html>';
 			update_option( 'pdf_html_save', $html );
@@ -281,7 +291,7 @@ class WC_Order_PDF_Download {
 			$dompdf->loadHtml( $html );
 			$dompdf->setPaper( 'A4', 'portrait' );
 			$dompdf->render();
-			$dompdf->stream( $filename, array( 'Attachment' => 1 ) );
+			$dompdf->stream( $filename, array( 'Attachment' => 0 ) );
 
 		}
 
