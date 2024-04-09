@@ -176,6 +176,7 @@ class WC_Order_PDF_Download {
 			<title>Order PDF</title>
 			
 			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<style>
 					@page {
 						margin: 0;
@@ -280,7 +281,7 @@ class WC_Order_PDF_Download {
 			$dompdf->loadHtml( $html );
 			$dompdf->setPaper( 'A4', 'portrait' );
 			$dompdf->render();
-			$dompdf->stream( $filename, array( 'Attachment' => 0 ) );
+			$dompdf->stream( $filename, array( 'Attachment' => 1 ) );
 
 		}
 
