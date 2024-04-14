@@ -18,6 +18,23 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 	class WC_Order_PDF_Download {
 
 		/**
+		 * Instance variable.
+		 *
+		 * @var instance.
+		 */
+		private static $instance = null;
+
+		/**
+		 * Instance of the Yagnik_Sangani_Plugin_Admin class.
+		 */
+		public static function instance() {
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
+			}
+			return self::$instance;
+		}
+
+		/**
 		 * Construct function of class - WC_Order_PDF_Download.
 		 *
 		 * @return void
@@ -258,7 +275,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				if ( empty( $sitelogo[0] ) ) {
 					$html .= '<td><div class="store_name"><h2>' . get_bloginfo( 'name' ) . '</h2></div></td>';
 				} else {
-					$html .= '<td><div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '"></div></td>';
+					$html .= '<td><div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '" /></div></td>';
 				}
 
 				$html .= '<td><div class="wcopd_pdf_store_address"><p style="font-size:13px;">' . $wc_store_address . '</p></div></td>';
