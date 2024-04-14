@@ -1,6 +1,6 @@
-# WooCommerce Order PDF Invoices Download
+# Download PDF Invoices for WooCommerce Orders
 
-Effortlessly generate and download PDF invoices and slips for your WooCommerce orders.
+Effortlessly generate and download PDF invoices for your WooCommerce orders.
 
 ## Description
 This WooCommerce extension simplifies invoice generation for your WooCommerce orders. It enables administrators to effortlessly download PDF invoices directly from the order admin page, while customers can conveniently access and download their order PDFs from the "My Account" page.

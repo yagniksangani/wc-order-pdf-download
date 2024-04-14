@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce Order PDF Invoices Download
+ * Plugin Name: Download PDF Invoices for WooCommerce Orders
  * Plugin URI: https://github.com/yagniksangani/wc-order-pdf-download
- * Description: Effortlessly generate and download PDF invoices and slips for your WooCommerce orders.
- * Version: 1.3
+ * Description: Effortlessly generate and download PDF invoices for your WooCommerce orders.
+ * Version: 1.3.0
  * Author: Yagnik Sangani
  * Text Domain: wc-order-pdf-download
  * License: GPL v2 or later
@@ -23,9 +23,5 @@ if ( ! defined( 'WC_ORDER_PDF_PLUGIN_FILE' ) ) {
 	define( 'WC_ORDER_PDF_PLUGIN_FILE', __FILE__ );
 }
 
-// Include the main WC_Order_PDF_Generate class.
-if ( ! class_exists( 'WC_Order_PDF_Generate', false ) ) {
-	include_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/includes/class-wc-order-pdf-download.php';
-}
-
-$wc_order_pdf_download = new WC_Order_PDF_Download();
+// Include the main WC_Order_PDF_Download class.
+require_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/includes/class-wc-order-pdf-download.php';
