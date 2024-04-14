@@ -23,16 +23,34 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 		 * @return void
 		 */
 		public function __construct() {
+			// Initialize plugin functionality.
+			$this->init();
+
+			// Include vendor autoload.
+			include_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/vendor/autoload.php';
+		}
+
+		/**
+		 * Add all the hook inside the this private method.
+		 */
+		private function init() {
+			// Perform action after plugin loaded.
 			add_action( 'plugins_loaded', array( $this, 'wcopd_check_some_other_plugin' ) );
+
+			// Add new column in backend woocommerce order listing page.
 			add_filter( 'manage_edit-shop_order_columns', array( $this, 'wcopd_add_order_pdf_column_header' ) );
 			add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'wcopd_add_order_pdf_column_header' ) );
+
+			// Add content for the custom column in backend woocommerce order listing page.
 			add_action( 'manage_shop_order_posts_custom_column', array( $this, 'wcopd_add_order_pdf_column_content', 25, 2 ) );
 			add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'wcopd_add_order_pdf_column_content' ), 25, 2 );
+
+			// Fetch order details on ajax call.
 			add_action( 'wp_ajax_get_order_details', array( $this, 'wcopd_get_order_details_ajax_code' ) );
 			add_action( 'wp_ajax_nopriv_get_order_details', array( $this, 'wcopd_get_order_details_ajax_code' ) );
-			add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'wcopd_add_my_account_my_orders_custom_action' ), 10, 2 );
 
-			include_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/vendor/autoload.php';
+			// Add new button on frontend my orders listing page.
+			add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'wcopd_add_my_account_my_orders_custom_action' ), 10, 2 );
 		}
 
 		/**
@@ -43,7 +61,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				add_action(
 					'admin_notices',
 					function() {
-						echo '<div class="error"><p><strong>' . esc_html__( 'WC Order PDF Download plugin requires the WooCommerce plugin to be installed and activated!', 'wc-order-pdf-download' ) . '</strong></p></div>';
+						echo '<div class="error"><p><strong>' . esc_html__( '"Download PDF Invoices for WooCommerce Orders" plugin requires the "WooCommerce" plugin to be installed and activated!', 'wc-order-pdf-download' ) . '</strong></p></div>';
 					}
 				);
 				return;
@@ -190,7 +208,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 
 						.wcopd_pdf_body {
 							padding:50px 50px;
-							background-color: #f5e5e5;
+							background-color: #fff;
 						}
 				
 						.wcopd_pdf_store_details {
@@ -235,15 +253,15 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				<body class="wcopd_pdf_body">
 				<table class="wcopd_pdf_store_details">';
 
-				$html .= '<tr><td>';
+				$html .= '<tr>';
 
 				if ( empty( $sitelogo[0] ) ) {
-					$html .= '<div class="store_name"><h2>' . get_bloginfo( 'name' ) . '</h2></div>';
+					$html .= '<td><div class="store_name"><h2>' . get_bloginfo( 'name' ) . '</h2></div></td>';
 				} else {
-					$html .= '<div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '"></div>';
+					$html .= '<td><div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '"></div></td>';
 				}
 
-				$html .= '<div class="wcopd_pdf_store_address"><p style="font-size:13px;">' . $wc_store_address . '</p></div></td>';
+				$html .= '<td><div class="wcopd_pdf_store_address"><p style="font-size:13px;">' . $wc_store_address . '</p></div></td>';
 				$html .= '</tr>';
 				$html .= '</table>';
 
@@ -279,7 +297,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				$html .= '<tr><td class="wcopd_pdf_order_heading"><strong>' . esc_html__( 'Order Total', 'wc-order-pdf-download' ) . '</strong></td><td class="wcopd_pdf_order_value"><strong>' . $currency . ' ' . number_format( $order_total, 2, '.', '' ) . '</strong></td></tr>';
 
 				$html .= '</table></body></html>';
-				update_option( 'pdf_html_save', $html );
+
 				$filename = 'order-' . $order_id;
 
 				$options = new Options();
@@ -293,7 +311,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				$dompdf->loadHtml( $html );
 				$dompdf->setPaper( 'A4', 'portrait' );
 				$dompdf->render();
-				$dompdf->stream( $filename, array( 'Attachment' => 1 ) );
+				$dompdf->stream( $filename, array( 'Attachment' => 0 ) );
 
 			}
 
