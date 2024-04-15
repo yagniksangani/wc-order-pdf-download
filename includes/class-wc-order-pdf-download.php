@@ -44,15 +44,18 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 			$this->init();
 
 			// Include vendor autoload.
-			include_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/vendor/autoload.php';
+			include_once dirname( WCOPD_FILE ) . '/vendor/autoload.php';
 		}
 
 		/**
 		 * Add all the hook inside the this private method.
 		 */
 		private function init() {
-			// Perform action after plugin loaded.
-			add_action( 'plugins_loaded', array( $this, 'wcopd_check_some_other_plugin' ) );
+			// Perform action once plugin loaded.
+			add_action( 'plugins_loaded', array( $this, 'wcopd_check_once_plugin_loaded' ) );
+
+			// Check on plugin activation action.
+			register_activation_hook( WCOPD_PLUGIN, array( $this, 'wcopd_check_before_plugin_activate' ) );
 
 			// Add new column in backend woocommerce order listing page.
 			add_filter( 'manage_edit-shop_order_columns', array( $this, 'wcopd_add_order_pdf_column_header' ) );
@@ -71,17 +74,48 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 		}
 
 		/**
-		 * Check WooCommerce plugin is installed/activated
+		 * Check WooCommerce plugin is installed/activated.
 		 */
-		public function wcopd_check_some_other_plugin() {
-			if ( ! class_exists( 'WooCommerce' ) ) {
+		public function wcopd_check_once_plugin_loaded() {
+			$found_error = false;
+			if ( ! class_exists( 'WooCommerce' ) && current_user_can( 'activate_plugins' ) ) {
+				$found_error = true;
+			} elseif ( version_compare( WC_VERSION, WCOPD_WC_VERSION, '<' ) ) {
+				$found_error = true;
+			}
+
+			if ( true === $found_error ) {
+				// Deactivate the plugin.
+				deactivate_plugins( WCOPD_PLUGIN );
+
+				// Display error message.
 				add_action(
 					'admin_notices',
 					function() {
-						echo '<div class="error"><p><strong>' . esc_html__( '"Download PDF Invoices for WooCommerce Orders" plugin requires the "WooCommerce" plugin to be installed and activated!', 'wc-order-pdf-download' ) . '</strong></p></div>';
+						echo '<div class="error"><p>' . __( 'To unlock the features of the <b>"Download PDF Invoices for WooCommerce Orders"</b> plugin, make sure you have the <b>"WooCommerce"</b> plugin installed and activated, with a minimum version of <b>' . WCOPD_WC_VERSION . '</b>!', 'wc-order-pdf-download' ) . '</p></div>'; // phpcs:ignore.
 					}
 				);
-				return;
+			}
+		}
+
+		/**
+		 * On plugin activation - check if WooCommerce plugin is installed/activated.
+		 */
+		public function wcopd_check_before_plugin_activate() {
+			// Require parent plugin.
+			$found_error = false;
+			if ( ! class_exists( 'WooCommerce' ) && current_user_can( 'activate_plugins' ) ) {
+				$found_error = true;
+			} elseif ( version_compare( WC_VERSION, WCOPD_WC_VERSION, '<' ) ) {
+				$found_error = true;
+			}
+
+			if ( true === $found_error ) {
+				// Deactivate the plugin.
+				deactivate_plugins( WCOPD_PLUGIN );
+
+				// Stop activation of plugin and display the error messagee.
+				wp_die( 'To unlock the features of the <b>"Download PDF Invoices for WooCommerce Orders"</b> plugin, make sure you have the <b>"WooCommerce"</b> plugin installed and activated, with a minimum version of <b>' . WCOPD_WC_VERSION . '</b>!<br><a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">&laquo; Return to Plugins</a>' ); // phpcs:ignore.
 			}
 		}
 

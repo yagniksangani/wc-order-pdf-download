@@ -59,3 +59,8 @@ This WooCommerce extension simplifies invoice generation for your WooCommerce or
 
 = 1.2.2 =
 * PDF text color enhancements
+
+= 1.3.0 =
+* Improved Code Performance: Enhanced the code for better efficiency and performance.
+* Styles and layout changes in Invoice PDF.
+* Verified Compatibility with Latest WordPress Version: Ensured seamless integration by confirming compatibility with the most recent WordPress version.

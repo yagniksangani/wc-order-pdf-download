@@ -19,9 +19,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! defined( 'WC_ORDER_PDF_PLUGIN_FILE' ) ) {
-	define( 'WC_ORDER_PDF_PLUGIN_FILE', __FILE__ );
-}
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+define( 'WCOPD_FILE', __FILE__ );
+define( 'WCOPD_PLUGIN', plugin_basename( __FILE__ ) );
+define( 'WCOPD_WC_VERSION', '7.0.0' );
 
 // Include the main WC_Order_PDF_Download class.
-require_once dirname( WC_ORDER_PDF_PLUGIN_FILE ) . '/includes/class-wc-order-pdf-download.php';
+require_once dirname( WCOPD_FILE ) . '/includes/class-wc-order-pdf-download.php';
