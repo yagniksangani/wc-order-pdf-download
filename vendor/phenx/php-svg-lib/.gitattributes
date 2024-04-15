@@ -7,3 +7,12 @@
 *.html  text
 *.htm   text
 *.svg   text
+
+# Ignore all test and documentation with "export-ignore".
+/.gitattributes     export-ignore
+/.github            export-ignore
+/.gitignore         export-ignore
+/tests              export-ignore
+/SECURITY.md        export-ignore
+/phpcs.xml          export-ignore
+/phpunit.xml        export-ignore
