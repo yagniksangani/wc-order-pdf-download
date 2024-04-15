@@ -255,13 +255,14 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 					
 						.store_name {
 							text-align:left;
-							color: #000;
+							color: #2f2424;
 						}
 
 						.wcopd_pdf_body {
 							padding:50px 50px;
 							background-color: #fff;
 							font-family: monospace;
+							color: #2f2424;
 						}
 				
 						.wcopd_pdf_store_details {
@@ -283,14 +284,14 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 						}
 
 						.wcopd_pdf_order_value {
-							color: #000;
+							color: #2f2424;
 							font-weight: 400;
 						}
 
 						.wcopd_pdf_store_address {
 							text-align:left;
 							margin: 10px 10px;
-							color: #052b47;
+							color: #2f2424;
 						}
 
 						.wcopd_pdf_item_data {
