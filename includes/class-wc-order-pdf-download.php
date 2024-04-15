@@ -341,7 +341,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				foreach ( $order_items as $item_id => $order_item ) {
 					$product_id = $order_item['product_id'];
 					$product    = wc_get_product( $product_id );
-					$html      .= '<tr><td class="wcopd_pdf_order_value"><div class="wcopd_pdf_item_data"><div class="item_data">' . $order_item->get_name() . '</div></div></td><td class="wcopd_pdf_order_value">' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td class="wcopd_pdf_order_value">' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
+					$html      .= '<tr><td class="wcopd_pdf_order_value">' . $order_item->get_name() . '</td><td class="wcopd_pdf_order_value">' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td class="wcopd_pdf_order_value">' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
 				}
 
 				$html .= '</table></td></tr>';
