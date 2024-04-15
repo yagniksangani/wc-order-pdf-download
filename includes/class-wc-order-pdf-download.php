@@ -361,7 +361,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				$dompdf->loadHtml( $html );
 				$dompdf->setPaper( 'A4', 'portrait' );
 				$dompdf->render();
-				$dompdf->stream( $filename, array( 'Attachment' => 0 ) );
+				$dompdf->stream( $filename, array( 'Attachment' => 1 ) );
 
 			}
 
