@@ -236,7 +236,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				$store_country = $split_country[0];
 				$store_state   = $split_country[1];
 
-				$wc_store_address  = '<b>Store Address:</b><br />';
+				$wc_store_address  = '<b>' . get_bloginfo( 'name' ) . '</b><br />';
 				$wc_store_address .= $store_address . '<br />';
 				$wc_store_address .= ( $store_address_2 ) ? $store_address_2 . '<br />' : '';
 				$wc_store_address .= $store_city . ', ' . $store_state . ' ' . $store_postcode . '<br />';
@@ -254,12 +254,14 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 						}
 					
 						.store_name {
-							color: #052b47;
+							text-align:left;
+							color: #000;
 						}
 
 						.wcopd_pdf_body {
 							padding:50px 50px;
 							background-color: #fff;
+							font-family: monospace;
 						}
 				
 						.wcopd_pdf_store_details {
@@ -271,21 +273,22 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 						}
 				
 						.wcopd_pdf_order_details {
-							border: 1px solid #052b47;
+							border: 1px solid #2f2424;
 							width: 100%;
 						}
 
 						.wcopd_pdf_order_heading {
-							background-color: #052b47;
+							background-color: #2f2424;
 							color: #fff;
 						}
 
 						.wcopd_pdf_order_value {
-							color: #052b47;
+							color: #000;
 							font-weight: 400;
 						}
 
 						.wcopd_pdf_store_address {
+							text-align:left;
 							margin: 10px 10px;
 							color: #052b47;
 						}
@@ -306,11 +309,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 
 				$html .= '<tr>';
 
-				if ( empty( $sitelogo[0] ) ) {
-					$html .= '<td><div class="store_name"><h2>' . get_bloginfo( 'name' ) . '</h2></div></td>';
-				} else {
-					$html .= '<td><div class="store_logo"><img style="max-width:100px" src="' . $sitelogo[0] . '" /></div></td>';
-				}
+				$html .= '<td><div class="store_name"><h1>INVOICE</h></div></td>';
 
 				$html .= '<td><div class="wcopd_pdf_store_address"><p style="font-size:13px;">' . $wc_store_address . '</p></div></td>';
 				$html .= '</tr>';
@@ -341,7 +340,7 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 				foreach ( $order_items as $item_id => $order_item ) {
 					$product_id = $order_item['product_id'];
 					$product    = wc_get_product( $product_id );
-					$html      .= '<tr><td class="wcopd_pdf_order_value"><div class="wcopd_pdf_item_data"><div class="item_data">' . $product->get_image( array( 35, 35 ) ) . '</div><div class="item_data">' . $order_item->get_name() . '</div></div></td><td class="wcopd_pdf_order_value">' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td class="wcopd_pdf_order_value">' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
+					$html      .= '<tr><td class="wcopd_pdf_order_value"><div class="wcopd_pdf_item_data"><div class="item_data">' . $order_item->get_name() . '</div></div></td><td class="wcopd_pdf_order_value">' . number_format( $order_item->get_quantity(), 2, '.', '' ) . '</td><td class="wcopd_pdf_order_value">' . $currency . ' ' . number_format( $order_item->get_total(), 2, '.', '' ) . '</td></tr>';
 				}
 
 				$html .= '</table></td></tr>';
@@ -355,7 +354,6 @@ if ( ! class_exists( 'WC_Order_PDF_Download' ) ) :
 
 				$options->set( 'isRemoteEnabled', true );
 				$options->set( 'isHtml5ParserEnabled', true );
-				$options->set( 'defaultFont', 'Courier' );
 
 				$dompdf = new DOMPDF( $options );
 
